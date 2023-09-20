@@ -18,6 +18,7 @@ const moviesArray = [{
 }, {
 	image: image,
 	title: '33 слова о дизайне',
+	duration: '1ч42м',
 	isLiked: false,
 }, {
 	image: image,
@@ -27,10 +28,12 @@ const moviesArray = [{
 }, {
 	image: image,
 	title: '33 слова о дизайне',
+	duration: '1ч42м',
 	isLiked: false,
 }, {
 	image: image,
 	title: '33 слова о дизайне',
+	duration: '1ч42м',
 	isLiked: false,
 }, {
 	image: image,
@@ -40,10 +43,12 @@ const moviesArray = [{
 }, {
 	image: image,
 	title: '33 слова о дизайне',
+	duration: '1ч42м',
 	isLiked: false,
 }, {
 	image: image,
 	title: '33 слова о дизайне',
+	duration: '1ч42м',
 	isLiked: false,
 }, {
 	image: image,
@@ -53,6 +58,7 @@ const moviesArray = [{
 }, {
 	image: image,
 	title: '33 слова о дизайне',
+	duration: '1ч42м',
 	isLiked: false,
 }, {
 	image: image,
@@ -62,10 +68,12 @@ const moviesArray = [{
 }, {
 	image: image,
 	title: '33 слова о дизайне',
+	duration: '1ч42м',
 	isLiked: false,
 }, {
 	image: image,
 	title: '33 слова о дизайне',
+	duration: '1ч42м',
 	isLiked: false,
 }, {
 	image: image,

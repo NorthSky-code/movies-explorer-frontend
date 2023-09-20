@@ -3,6 +3,7 @@
 	justify-content: space-between;
 	align-items: center;
 	min-height: 74px;
+	max-width: 1280px;
 	padding: 0 70px;
 }
 
@@ -16,7 +17,7 @@
 
 .logo:hover {
 	transition: linear .2s;
-	opacity: 0.8;
+	opacity: 0.7;
 }
 
 .nav {
@@ -39,6 +40,7 @@
 }
 
 .nav__list-main {
+	align-items: center;
 	gap: 0;
 }
 
@@ -65,6 +67,7 @@
 	font-weight: 500;
 	line-height: 16px;
 	color: #FFFFFF;
+	display: block;
 	text-decoration: none;
 	transition: linear .2s;
 }
@@ -114,11 +117,11 @@
 	background-color: transparent;
 }
 
-.navigation__main-color .account__pic {
+.navigation__main-color .account__link::after {
 	background-color: #0F4157;
 }
 
-.navigation__default-color .account__pic {
+.navigation__default-color .account__link::after {
 	background-color: #313131;
 }
 
@@ -140,10 +143,31 @@
 	.nav__burger-btn {
 		display: block;
 	}
+
+	.nav__burger-icon {
+		display: block;
+		width: 44px;
+		height: 44px;
+	}
 }
 
 @media screen and (max-width: 767px) {
 	.navigation {
 		padding: 0 14px;
+	}
+
+	.nav__list-item {
+		font-size: 10px;
+	}
+
+
+	.nav__list-item_signin {
+		padding: 5px 12px;
+		margin-left: 14px;
+	}
+
+	.nav__burger-icon {
+		width: 40px;
+		height: 43px;
 	}
 }

@@ -7,11 +7,9 @@ function NotFound() {
 		<section className="not-found">
 			<div className="not-found__text">
 				<h1 className="not-found__title">404</h1>
-				<h3 className="not-found__subtitle">Страница не найдена</h3>
+				<p className="not-found__subtitle">Страница не найдена</p>
 			</div>
-			<button className="not-found__btn">
-				<Link to="/" className="not-found__link">Назад</Link>
-			</button>
+			<Link to="/" className="not-found__link">Назад</Link>
 		</section>
 	)
 }

@@ -3,8 +3,8 @@ import './Footer.css';
 
 function Footer() {
 	return (
-		<footer className='footer'>
-			<h4 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h4>
+		<footer className="footer">
+			<h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
 			<div className="footer__meta">
 				<p className="footer__text">&#169;{new Date().getFullYear()}</p>
 				<ul className="footer__list">

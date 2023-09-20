@@ -1,34 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Register/Register.css';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 
 function Login() {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const handleEmailChange = (e) => {
+		setEmail(e.target.value);
+	};
+
+	const handlePasswordChange = (e) => {
+		setPassword(e.target.value);
+	};
 
 	return (
 		<main className="register">
 			<div className="register__logo">
-				<Link to="/"><img src={logo} alt="Логотип" /></Link>
+				<Link to="/"><img src={logo} className="register__logo-icon" alt="Логотип" /></Link>
 			</div>
-			<form action="" className="register__form">
-				<h2 className="register__form-title">Рады видеть!</h2>
-				<label htmlFor="register-email" className="register__form-field">E-mail</label>
+			<form className="register__form">
+				<h1 className="register__form-title">Рады видеть!</h1>
+				<label htmlFor="useremail" className="register__form-field">E-mail</label>
 				<input
 					className="register__form-input"
-					id="email"
+					id="useremail"
 					type="email"
 					name="email"
-					value={'pochta@yandex.ru|'}
-					required />
+					placeholder="Укажите ваш email"
+					value={email}
+					onChange={handleEmailChange}
+					minLength={2}
+					maxLength={40}
+					required
+				/>
 				<span className="register__form_error"></span>
 				<label htmlFor="userpassword" className="register__form-field">Пароль</label>
 				<input
 					className="register__form-input"
+					id="password"
 					type="password"
 					name="password"
-					id="userpassword"
-					value={''}
-					required />
+					placeholder="Укажите ваш пароль"
+					value={password}
+					onChange={handlePasswordChange}
+					minLength={2}
+					maxLength={40}
+					required
+				/>
 				<span className="register__form_error">Что-то пошло не так...</span>
 				<button type="submit" className="register__form-btn register__form-log">Войти</button>
 			</form>

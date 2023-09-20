@@ -1,5 +1,6 @@
 .not-found {
-	margin: 246px auto 60px;
+	padding: 246px 0 60px;
+	margin: 0 auto;
 	max-width: 400px;
 	width: 100%;
 	display: flex;
@@ -8,9 +9,7 @@
 
 .not-found__text {
 	color: #FFFFFF;
-	font-weight: 400;
 	text-align: center;
-	line-height: normal;
 	margin-bottom: 184px;
 }
 
@@ -18,56 +17,57 @@
 	margin: 0 0 5px;
 	padding: 0;
 	font-size: 140px;
+	font-weight: 400;
+	line-height: normal;
 }
 
 .not-found__subtitle {
 	margin: 0;
 	padding: 0;
 	font-size: 16px;
-}
-
-.not-found__btn {
-	margin: 0;
-	padding: 0;
-	border: none;
-	background-color: transparent;
-	cursor: pointer;
-	box-sizing: border-box;
-	transition: linear .2s;
-}
-
-.not-found__btn:hover {
-	transition: linear .2s;
-	opacity: 0.7;
+	font-weight: 400;
+	line-height: normal;
 }
 
 .not-found__link {
+	margin: 0;
+	padding: 0;
+	display: block;
+	cursor: pointer;
+	box-sizing: border-box;
 	text-decoration: none;
 	color: #4285F4;
 	text-align: center;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: normal;
+	transition: linear .2s;
+}
+
+.not-found__link:hover {
+	transition: linear .2s;
+	opacity: 0.7;
 }
 
 @media screen and (max-width: 1023px) {
 	.not-found {
-		margin: 408px auto 222px;
+		padding: 408px 0 222px;
 	}
 }
 
 @media screen and (max-width: 767px) {
 	.not-found {
-		margin: 329px auto 30px;
+		padding: 329px 0 30px;
 		max-width: 320px;
+	}
+
+	.not-found__title {
+		margin: 0 0 10px;
+		font-size: 80px;
 	}
 
 	.not-found__text {
 		margin-bottom: 284px;
-	}
-
-	.not-found__title {
-		font-size: 80px;
 	}
 
 	.not-found__subtitle {

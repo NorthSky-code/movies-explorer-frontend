@@ -1,6 +1,6 @@
 .account {
 	display: flex;
-	justify-content: end;
+	align-items: center;
 	box-sizing: border-box;
 	cursor: pointer;
 	width: 100px;
@@ -16,8 +16,8 @@
 }
 
 .account__link {
-	display: flex;
-	align-items: center;
+	padding-left: 11px;
+	position: relative;
 	font-size: 13px;
 	font-weight: 500;
 	line-height: 12px;
@@ -25,16 +25,18 @@
 	text-decoration: none;
 }
 
-.account__pic {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.account__link::after {
+	content: "";
+	position: absolute;
+	display: block;
 	width: 26px;
 	height: 26px;
-	margin: 0 3px 0 7px;
+	top: -60%;
+	left: 71px;
 	border-radius: 100%;
-}
-
-.account__pic-icon {
-	width: 12px;
+	background-color: #313131;
+	background-image: url("../../../images/icon__profile.svg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 12px;
 }

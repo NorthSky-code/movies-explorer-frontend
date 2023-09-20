@@ -1,13 +1,15 @@
 import React from 'react';
-import SearchForm from '../Movies/SearchForm/SearchForm.js';
-import MoviesCardList from './MoviesCardList/MoviesCardList.js'
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardListSave from '../MoviesCardListSave/MoviesCardListSave';
 
 function SavedMovies() {
 	return (
-		<section className="movies">
-			<SearchForm />
-			<MoviesCardList />
-		</section>
+		<main>
+			<section className="movies">
+				<SearchForm />
+				<MoviesCardListSave />
+			</section>
+		</main>
 	)
 }
 

@@ -32,7 +32,7 @@ function Navigation(props) {
 							<NavLink
 								to="/movies"
 								className="nav__list-link"
-								activeclassname="active">
+							>
 								Фильмы
 							</NavLink>
 						</li>
@@ -40,7 +40,7 @@ function Navigation(props) {
 							<NavLink
 								to="/saved-movies"
 								className="nav__list-link"
-								activeclassname="active">
+							>
 								Сохранённые фильмы
 							</NavLink>
 						</li>
@@ -50,7 +50,7 @@ function Navigation(props) {
 							<Account />
 						</div>
 						<button type="button" className="nav__burger-btn" onClick={onBurgerIcon}>
-							<img src={burger} alt="меню бургер" />
+							<img src={burger} className="nav__burger-icon" alt="меню бургер" />
 						</button>
 					</div>
 				</nav>) : (
