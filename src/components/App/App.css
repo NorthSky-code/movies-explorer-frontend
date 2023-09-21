@@ -1,0 +1,9 @@
+.page {
+	box-sizing: border-box;
+	flex: 1 1 auto;
+	margin: 0 auto;
+	max-width: 1280px;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}

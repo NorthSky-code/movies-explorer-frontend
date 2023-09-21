@@ -1,0 +1,141 @@
+.popup {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	opacity: 0;
+	visibility: hidden;
+	transition: visibility 0.2s, opacity .2s linear;
+	transition-delay: 0s;
+}
+
+.popup_opened {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0s;
+}
+
+.burger {
+	position: fixed;
+	display: none;
+	max-width: 520px;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	top: 0;
+	right: 0;
+	padding-top: 159px;
+	background-color: #202020;
+}
+
+.burger__btn-close::before {
+	content: "";
+	position: absolute;
+	display: block;
+	top: 0;
+	width: 22px;
+	height: 22px;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-position: center;
+	background-image: url('../../images/icon_close.svg');
+}
+
+.burger__btn-close {
+	position: absolute;
+	display: block;
+	top: 27.4px;
+	right: 27.4px;
+	width: 22px;
+	height: 22px;
+	cursor: pointer;
+	background-color: transparent;
+	margin: 0;
+	padding: 0;
+	border: none;
+	transition: linear .2s;
+}
+
+.burger__btn-close:hover {
+	transition: linear .2s;
+	opacity: 0.8;
+}
+
+.burger__nav {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.burger__list {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 28px;
+}
+
+.burger__list-link {
+	text-decoration: none;
+	display: block;
+	box-sizing: border-box;
+	height: 22px;
+	color: #FFFFFF;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: normal;
+	transition: linear .2s;
+}
+
+.burger__list-link:hover {
+	transition: linear .2s;
+	opacity: 0.7;
+}
+
+@media screen and (max-width: 769px) {
+	.burger {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 159px 0 90px;
+	}
+
+	.burger__list {
+		margin-bottom: 621px;
+	}
+
+	.active {
+		text-decoration: underline;
+		text-decoration-color: #FFFFFF;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 9px;
+	}
+}
+
+
+@media screen and (max-width:767px) {
+	.burger {
+		padding: 144px 0 0px;
+		max-width: 320px;
+	}
+
+	.burger__list {
+		gap: 24px;
+		margin-bottom: 444px;
+	}
+
+	.burger__btn-close {
+		top: 17.7px;
+		right: 17.7px;
+	}
+
+	.active {
+		text-underline-offset: 11px;
+	}
+}

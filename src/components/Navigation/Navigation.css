@@ -1,0 +1,173 @@
+.navigation {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	min-height: 74px;
+	max-width: 1280px;
+	padding: 0 70px;
+}
+
+.logo {
+	width: 38px;
+	height: 38px;
+	border-radius: 100%;
+	flex: 1 1 auto;
+	transition: linear .2s;
+}
+
+.logo:hover {
+	transition: linear .2s;
+	opacity: 0.7;
+}
+
+.nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex: 1 1 auto;
+}
+
+.nav__main {
+	justify-content: end;
+}
+
+.nav__list {
+	display: flex;
+	margin: 0;
+	padding-left: 65px;
+	list-style-type: none;
+	gap: 16px;
+}
+
+.nav__list-main {
+	align-items: center;
+	gap: 0;
+}
+
+.nav__list-link {
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 18px;
+	color: #FFFFFF;
+	text-decoration: none;
+	transition: linear .2s;
+}
+
+.nav__list-link:hover {
+	transition: linear .2s;
+	opacity: 0.7;
+}
+
+.active {
+	font-weight: 500;
+}
+
+.nav__list-item {
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 16px;
+	color: #FFFFFF;
+	display: block;
+	text-decoration: none;
+	transition: linear .2s;
+}
+
+.nav__list-item:hover {
+	transition: linear .2s;
+	opacity: 0.7;
+}
+
+.nav__list-item_signin {
+	padding: 8px 20px;
+	margin-left: 30px;
+	box-sizing: border-box;
+	cursor: pointer;
+	border-radius: 3px;
+	background: #3DDC84;
+	color: #000000;
+}
+
+.nav__burger-btn {
+	padding: 0;
+	margin: 0;
+	border: none;
+	box-sizing: border-box;
+	background-color: transparent;
+	cursor: pointer;
+	transform: 0.2s;
+	display: none;
+	transition: linear .2s;
+}
+
+.nav__burger-btn:hover {
+	transition: linear .2s;
+	opacity: 0.8;
+}
+
+.nav__burger-btn:hover {
+	opacity: 0.8;
+	transform: 0.2s;
+}
+
+.navigation__main-color {
+	background-color: #073042;
+}
+
+.navigation__default-color {
+	background-color: transparent;
+}
+
+.navigation__main-color .account__link::after {
+	background-color: #0F4157;
+}
+
+.navigation__default-color .account__link::after {
+	background-color: #313131;
+}
+
+@media screen and (max-width: 1023px) {
+	.navigation {
+		padding: 0 30px;
+	}
+}
+
+@media screen and (max-width: 769px) {
+	.nav__list-link {
+		display: none;
+	}
+
+	.nav__account-link {
+		display: none;
+	}
+
+	.nav__burger-btn {
+		display: block;
+	}
+
+	.nav__burger-icon {
+		display: block;
+		width: 44px;
+		height: 44px;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.navigation {
+		padding: 0 14px;
+	}
+
+	.nav__list-item {
+		font-size: 10px;
+	}
+
+
+	.nav__list-item_signin {
+		padding: 5px 12px;
+		margin-left: 14px;
+	}
+
+	.nav__burger-icon {
+		width: 40px;
+		height: 43px;
+	}
+}
