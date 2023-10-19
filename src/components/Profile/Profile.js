@@ -1,92 +1,111 @@
-import React, { useState } from 'react';
 import './Profile.css';
+import React, { useContext, useState } from 'react';
+import Header from '../Header/Header';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { EMAIL_REGEX } from '../../utils/constants';
 
-function Profile() {
-	const [username, setUsername] = useState('Виталий');
-	const [useremail, setUseremail] = useState('pochta@yandex.ru');
+
+function Profile({ onBurgerIcon, loggedIn, onUpdateUser, onSignOut }) {
+	const currentUser = useContext(CurrentUserContext);
+	const { values, handleChange, isValid } = useFormWithValidation();
+
 	const [isDisabled, setIsDisabled] = useState(true);
-	const [error, setError] = useState(false);
 
-	const handleNameChange = (e) => {
-		setUsername(e.target.value);
-	};
-
-	const handleEmailChange = (e) => {
-		setUseremail(e.target.value);
-	};
-
-	const handleChangeStatus = (e) => {
-		e.preventDefault();
+	const handleChangeStatus = () => {
 		setIsDisabled(!isDisabled);
-		setError(false);
 	};
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		setError(true);
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		onUpdateUser({
+			name: values.name,
+			email: values.email,
+		});
+		setIsDisabled(false);
+	};
+
+	const handleLogout = () => {
+		onSignOut();
 	};
 
 	return (
-		<main>
-			<section className="profile">
-				<form className="profile__form">
-					<h1 className="profile__form-title">Привет, {username}!</h1>
-					<div className="profile__info">
-						<div className="profile__info-item">
-							<label htmlFor="username" className="profile__info-item_field">Имя</label>
-							<input
-								className="profile__info-item_input"
-								id="username"
-								type="text"
-								name="name"
-								placeholder="Укажите вае имя"
-								value={username}
-								onChange={handleNameChange}
-								minLength={2}
-								maxLength={40}
-								disabled={isDisabled}
-								required
-							/>
-						</div>
-						<div className="profile__info-item">
-							<label htmlFor="useremail" className="profile__info-item_field">E-mail</label>
-							<input
-								className="profile__info-item_input"
-								id="useremail"
-								type="email"
-								name="email"
-								placeholder="Укажите ваш email"
-								value={useremail}
-								onChange={handleEmailChange}
-								minLength={2}
-								maxLength={40}
-								disabled={isDisabled}
-								required
-							/>
-						</div>
+
+		<section className="profile">
+			<Header
+				onBurgerIcon={onBurgerIcon}
+				loggedIn={loggedIn}
+			/>
+			<form onSubmit={handleSubmit} className="profile__form" noValidate>
+				<h1 className="profile__form-title">Привет, {currentUser.name}!</h1>
+				<div className="profile__info">
+					<div className="profile__info-item">
+						<label htmlFor="username" className="profile__info-item_field">
+							Имя
+						</label>
+						<input
+							className="profile__info-item_input"
+							id="username"
+							type="text"
+							name="name"
+							placeholder="Укажите ваше имя"
+							defaultValue={currentUser.name}
+							onChange={handleChange}
+							minLength={2}
+							maxLength={40}
+							disabled={isDisabled}
+							required
+						/>
 					</div>
-					<div className="profile__form-buttons">
-						{isDisabled ? (
-							<div className="profile__btn-container">
-								<button type="button" className="button button__edit" onClick={handleChangeStatus} >Редактировать</button>
-								<button type="button" className="button button__exit">Выйти из аккаунта</button>
-							</div>
-						) : (
-							<div className="profile__save-container">
-								{error &&
-									<span className="profile__error">
-										При обновлении профиля произошла ошибка.
-									</span>}
-								<button type="submit" className={`button button__save ${error && 'button__save_disabled'}`} onClick={handleSubmit} disabled={error}>
-									Сохранить
-								</button>
-							</div>
-						)}
+					<div className="profile__info-item">
+						<label htmlFor="useremail" className="profile__info-item_field">
+							E-mail
+						</label>
+						<input
+							className="profile__info-item_input"
+							id="useremail"
+							type="email"
+							name="email"
+							placeholder="Укажите ваш email"
+							defaultValue={currentUser.email}
+							onChange={handleChange}
+							minLength={2}
+							maxLength={40}
+							disabled={isDisabled}
+							pattern={EMAIL_REGEX}
+							required
+						/>
 					</div>
-				</form>
-			</section>
-		</main>
-	)
+				</div>
+				<div className="profile__form-buttons">
+					{isDisabled ? (
+						<div className="profile__btn-container">
+							<button
+								type="button"
+								className="button button__edit"
+								onClick={handleChangeStatus}
+							>
+								Редактировать
+							</button>
+							<button type="button" className="button button__exit" onClick={handleLogout}>
+								Выйти из аккаунта
+							</button>
+						</div>
+					) : (
+						<div className="profile__save-container">
+							<button
+								type="submit"
+								className={`button button__save ${!isValid ? 'button__save_disabled' : ''}`}
+								disabled={!isValid}
+							>
+								Сохранить
+							</button>
+						</div>
+					)}
+				</div>
+			</form>
+		</section>
+	);
 }
 
 export default Profile;

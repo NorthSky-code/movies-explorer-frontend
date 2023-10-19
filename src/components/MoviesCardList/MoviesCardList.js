@@ -1,31 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import MoreMovies from '../MoreMovies/MoreMovies';
-import moviesArray from '../../utils/MoviesArray';
 import Preloader from '../Preloader/Preloader';
+import { notFoundMessage, errorRequestMessage } from '../../utils/constants';
 
-function MoviesCardList() {
-	const [isLoading, setIsLoading] = useState(false);
+function MoviesCardList({ isLoading, isNotFound, isErrorRequest, movies, countMovies, showMore, onCardLike, onCardDelete, isLiked, isSavedMovies }) {
+
+	const initialMovies = movies.slice(0, countMovies);
 
 	return (
 		<section className="card-list">
 			{isLoading ? (
 				<Preloader />
 			) : (
-				<ul className="card-list__movies">
-					{moviesArray.map((movie, i) => (
-						<MoviesCard key={i}
-							image={movie.image}
-							title={movie.title}
-							duration={movie.duration}
-							isLiked={movie.isLiked}
-							currentPage="movies"
-						/>
-					))}
-				</ul>
+				<div>
+					{isNotFound ? (
+						<p className="card-list__message">{notFoundMessage}</p>
+					) : isErrorRequest ? (
+						<p className="card-list__message">{errorRequestMessage}</p>
+					) : (
+						<ul className="card-list__movies">
+							{initialMovies.map((movie) => (
+								<MoviesCard
+									key={movie._id}
+									movie={movie}
+									onCardLike={onCardLike}
+									onCardDelete={onCardDelete}
+									isLiked={isLiked}
+									isSavedMovies={isSavedMovies}
+								/>
+							))}
+						</ul>
+					)}
+				</div>
 			)}
-			<MoreMovies />
+			<MoreMovies
+				movies={movies}
+				initialMovies={initialMovies}
+				showMore={showMore}
+			/>
 		</section>
 	);
 }

@@ -25,7 +25,7 @@ function Navigation(props) {
 			<div className="logo">
 				<Link to="/"><img src={logo} alt="Логотип" /></Link>
 			</div>
-			{!loggedIn ? (
+			{loggedIn ? (
 				<nav className="nav">
 					<ul className="nav__list">
 						<li>
