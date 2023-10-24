@@ -5,7 +5,7 @@ import MoreMovies from '../MoreMovies/MoreMovies';
 import Preloader from '../Preloader/Preloader';
 import { notFoundMessage, errorRequestMessage } from '../../utils/constants';
 
-function MoviesCardList({ isLoading, isNotFound, isErrorRequest, movies, countMovies, showMore, onCardLike, onCardDelete, isLiked, isSavedMovies }) {
+function MoviesCardList({ isLoading, isNotFound, isErrorRequest, movies, countMovies, showMore, onCardLike, onCardDelete, isSavedMovies }) {
 
 	const initialMovies = movies.slice(0, countMovies);
 
@@ -23,11 +23,10 @@ function MoviesCardList({ isLoading, isNotFound, isErrorRequest, movies, countMo
 						<ul className="card-list__movies">
 							{initialMovies.map((movie) => (
 								<MoviesCard
-									key={movie._id}
+									key={movie.id || movie._id}
 									movie={movie}
 									onCardLike={onCardLike}
 									onCardDelete={onCardDelete}
-									isLiked={isLiked}
 									isSavedMovies={isSavedMovies}
 								/>
 							))}

@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MoviesCard.css';
 
 function MoviesCard({ movie, onCardLike, onCardDelete, isSavedMovies }) {
-	const [isLiked, setIsLiked] = useState(false);
 	const { image, duration, nameRU, trailerLink } = movie;
 	const imageCard = isSavedMovies ? image : `https://api.nomoreparties.co${image?.url}`;
+	const [isLiked, setIsLiked] = useState(false);
+
+	useEffect(() => {
+		setIsLiked(isSavedMovies);
+	}, [isSavedMovies]);
 
 	const formatTime = () => {
 		const hours = Math.floor(duration / 60);
@@ -14,12 +18,12 @@ function MoviesCard({ movie, onCardLike, onCardDelete, isSavedMovies }) {
 
 	const handleCardLike = () => {
 		onCardLike(movie);
-		setIsLiked(true);
+		setIsLiked(true)
 	};
 
 	const handleCardDelete = () => {
 		onCardDelete(movie);
-		setIsLiked(false);
+		setIsLiked(false)
 	};
 
 	const handleCardUnlike = () => {

@@ -27,7 +27,6 @@ class MainApi {
 			headers: {
 				authorization: `Bearer ${token}`,
 				'Content-Type': 'application/json',
-				'Accept': 'application/json'
 			},
 			body: JSON.stringify({
 				movieId: movie.id,

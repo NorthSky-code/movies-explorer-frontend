@@ -29,13 +29,13 @@ function App() {
 
 	useEffect(() => {
 		if (loggedIn) {
-			Promise.all([api.getInfoProfile(), api.getInitialMovies()])
-				.then(([data, movieCard]) => {
+			api
+				.getInfoProfile()
+				.then((data) => {
 					setCurrentUser(data);
-					setIsSavedMovies(movieCard);
 				})
-				.catch((error) => {
-					console.log(error);
+				.catch((err) => {
+					console.log(err);
 				});
 		}
 	}, [loggedIn]);
@@ -43,6 +43,7 @@ function App() {
 	useEffect(() => {
 		tokenCheck();
 	}, []);
+
 
 	function handleBurgerClick() {
 		setIsBurgerOpen(!isBurgerOpen);
@@ -85,6 +86,7 @@ function App() {
 			.then((res) => {
 				if (res.token) {
 					localStorage.setItem('token', res.token);
+					localStorage.setItem('loggedIn', 'true');
 					setLoggedIn(true);
 					navigate('/movies', { replace: true });
 				}
@@ -102,7 +104,7 @@ function App() {
 			.then((data) => {
 				setIsInfoTooltipPopup(true);
 				setIsInfoTooltipImage(true);
-				setIsInfoTooltipMessage('Успех');
+				setIsInfoTooltipMessage('Данные профиля обновлены');
 				setCurrentUser(data);
 			})
 			.catch((err) => {
@@ -116,29 +118,38 @@ function App() {
 	const handleSignOut = () => {
 		localStorage.removeItem('token');
 		setLoggedIn(false);
+		setCurrentUser({});
+		setIsSavedMovies([]);
+		localStorage.removeItem('loggedIn');
+		localStorage.clear();
 		navigate('/', { replace: true });
 	}
 
-	const handleCardLike = (newMovie) => {
-		api.savedMovieProfile(newMovie)
-			.then((data) => {
-				setIsSavedMovies([data, ...isSavedMovies]);
+	const handleCardLike = (movie) => {
+		api
+			.savedMovieProfile(movie)
+			.then((newMovie) => {
+				setIsSavedMovies([newMovie, ...isSavedMovies]);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	};
 
-	const handleCardDelete = (removeMovie) => {
-		api.deleteMovieProfile(removeMovie._id)
-			.then(() => {
-				setIsSavedMovies(prevMovies => prevMovies.filter(movie => movie._id !== removeMovie._id));
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+	const handleCardDelete = (movie) => {
+		const movieId = isSavedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
+		if (movieId) {
+			api
+				.deleteMovieProfile(movieId._id)
+				.then(() => {
+					const newSavedMovies = isSavedMovies.filter((savedMovie) => savedMovie._id !== movieId._id);
+					setIsSavedMovies(newSavedMovies);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	};
-
 
 	function closeAllPopups() {
 		setIsBurgerOpen(false);
@@ -178,6 +189,7 @@ function App() {
 							loggedIn={loggedIn}
 							onCardLike={handleCardLike}
 							isSavedMovies={isSavedMovies}
+							setIsSavedMovies={setIsSavedMovies}
 							onCardDelete={handleCardDelete}
 						/>
 					} />

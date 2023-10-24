@@ -25,7 +25,6 @@ function SearchForm({ handleSearchMovie, searchMovies, handleFilterSearch, check
 						value={searchMovies}
 						onChange={handleSearchMovie}
 						placeholder="Фильм"
-						minLength={2}
 						maxLength={40}
 						required
 					/>
@@ -33,7 +32,7 @@ function SearchForm({ handleSearchMovie, searchMovies, handleFilterSearch, check
 						<img src={find} alt="иконка поиска" />
 					</button>
 				</div>
-				<div className="register__form-error">
+				<div className="search__error">
 					{errors.search && <span>{errors.search}</span>}
 				</div>
 			</form>

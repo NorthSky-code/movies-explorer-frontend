@@ -5,17 +5,23 @@ import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { filterSearch } from '../../utils/filterSearch';
 
-function SavedMovies({ onBurgerIcon, loggedIn, isSavedMovies, onCardDelete }) {
+function SavedMovies({ onBurgerIcon, loggedIn, isSavedMovies, onCardDelete, setIsSavedMovies }) {
 	const [movies, setMovies] = useState(isSavedMovies);
-	const [isNotFound, setIsNotFound] = useState(false);
 	const [isErrorRequest, setIsErrorRequest] = useState(false);
+	const [isNotFound, setIsNotFound] = useState(false);
 	const [searchMovies, setSearchMovies] = useState(localStorage.getItem('searchMovies') || '');
 	const [isShortMovies, setIsShortMovies] = useState(JSON.parse(localStorage.getItem('isShort')) || false);
 
 	useEffect(() => {
-		setMovies(isSavedMovies);
-	}, [isSavedMovies, isShortMovies]);
+		localStorage.setItem('isSavedMovies', JSON.stringify(isSavedMovies));
+	}, [isSavedMovies]);
 
+	useEffect(() => {
+		const filteredMovies = filterSearch(isSavedMovies, searchMovies, isShortMovies);
+		const notFound = filteredMovies.length === 0;
+		setIsNotFound(notFound);
+		setMovies(filteredMovies);
+	}, [isSavedMovies, isShortMovies]);
 
 	function handleSearchMovie(e) {
 		const searchData = e.target.value;
@@ -41,32 +47,33 @@ function SavedMovies({ onBurgerIcon, loggedIn, isSavedMovies, onCardDelete }) {
 	function checkShortMovie(e) {
 		const checked = e.target.checked;
 		setIsShortMovies(checked);
-		handleFilterSearch(searchMovies);
-		localStorage.setItem('isShort', checked);
+		localStorage.setItem('isShort', JSON.stringify(checked));
+	}
+
+	function handleCardDelete(movie) {
+		const updatedMovies = movies.filter((m) => m._id !== movie._id);
+		setIsSavedMovies(updatedMovies);
+		onCardDelete(movie);
 	}
 
 	return (
 		<>
-			<Header
-				onBurgerIcon={onBurgerIcon}
-				loggedIn={loggedIn}
-			/>
+			<Header onBurgerIcon={onBurgerIcon} loggedIn={loggedIn} />
 			<main>
 				<section className="movies">
 					<SearchForm
 						handleSearchMovie={handleSearchMovie}
 						handleFilterSearch={handleFilterSearch}
-						searchMovies={searchMovies}
 						checkShortMovie={checkShortMovie}
+						searchMovies={searchMovies}
 						isShortMovies={isShortMovies}
-						isSavedMovies={isSavedMovies}
 					/>
 					<MoviesCardList
-						isSavedMovies={isSavedMovies}
 						movies={movies}
+						isSavedMovies={isSavedMovies}
 						isNotFound={isNotFound}
 						isErrorRequest={isErrorRequest}
-						onCardDelete={onCardDelete}
+						onCardDelete={handleCardDelete}
 					/>
 				</section>
 			</main>

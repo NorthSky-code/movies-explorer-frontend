@@ -19,7 +19,7 @@ function Movies({ onBurgerIcon, loggedIn, onCardLike, onCardDelete }) {
 	const [isShortMovies, setIsShortMovies] = useState(JSON.parse(localStorage.getItem('isShort')) || false);
 
 	useEffect(() => {
-		if (apiMovies === 0) {
+		if (apiMovies.length === 0) {
 			setIsLoading(true);
 			movieApi
 				.getMovies()
@@ -52,6 +52,10 @@ function Movies({ onBurgerIcon, loggedIn, onCardLike, onCardDelete }) {
 		};
 	}, []);
 
+	// useEffect(() => {
+	// 	const filteredMovies = filterSearch(apiMovies, searchMovies, isShortMovies);
+	// 	setMovies(filteredMovies);
+	// }, [isShortMovies]);
 
 	const handleResize = () => {
 		const screenWidth = window.innerWidth;
@@ -82,12 +86,13 @@ function Movies({ onBurgerIcon, loggedIn, onCardLike, onCardDelete }) {
 			addShowCards = showMoreCards.mobile;
 		}
 
-		setCardMoviesView(prevCount => prevCount + addShowCards);
+		setCardMoviesView((prevCount) => prevCount + addShowCards);
 	}
 
 	function handleSearchMovie(e) {
 		const searchData = e.target.value;
 		setSearchMovies(searchData);
+		setCardMoviesView(handleResize);
 		localStorage.setItem('searchMovies', searchData);
 	}
 
@@ -102,6 +107,7 @@ function Movies({ onBurgerIcon, loggedIn, onCardLike, onCardDelete }) {
 				setIsNotFound(false);
 			}
 			setMovies(filteredMovies);
+			setCardMoviesView(handleResize);
 			localStorage.setItem('filteredSearchMovies', JSON.stringify(filteredMovies));
 		}
 	}
@@ -113,13 +119,9 @@ function Movies({ onBurgerIcon, loggedIn, onCardLike, onCardDelete }) {
 		localStorage.setItem('isShort', checked);
 	}
 
-
 	return (
 		<>
-			<Header
-				onBurgerIcon={onBurgerIcon}
-				loggedIn={loggedIn}
-			/>
+			<Header onBurgerIcon={onBurgerIcon} loggedIn={loggedIn} />
 			<main>
 				<section className="movies">
 					<SearchForm

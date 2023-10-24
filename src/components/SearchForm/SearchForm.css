@@ -16,14 +16,14 @@
 	border-bottom: 1px solid #424242;
 }
 
-/* .search__error {
+.search__error {
 	position: absolute;
 	color: #EE3465;
 	height: 10px;
-	font-size: 10px;
+	font-size: 14px;
 	font-weight: 400;
 	line-height: normal;
-} */
+}
 
 .search__text {
 	padding: 0;

@@ -1,5 +1,5 @@
 import './Profile.css';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
@@ -8,9 +8,17 @@ import { EMAIL_REGEX } from '../../utils/constants';
 
 function Profile({ onBurgerIcon, loggedIn, onUpdateUser, onSignOut }) {
 	const currentUser = useContext(CurrentUserContext);
-	const { values, handleChange, isValid } = useFormWithValidation();
+	const { values, handleChange, isValid, resetForm } = useFormWithValidation();
 
 	const [isDisabled, setIsDisabled] = useState(true);
+
+	const isFormValue = !isValid || (currentUser.name === values.name && currentUser.email === values.email);
+
+	useEffect(() => {
+		if (currentUser) {
+			resetForm(currentUser);
+		}
+	}, [currentUser, resetForm]);
 
 	const handleChangeStatus = () => {
 		setIsDisabled(!isDisabled);
@@ -22,7 +30,7 @@ function Profile({ onBurgerIcon, loggedIn, onUpdateUser, onSignOut }) {
 			name: values.name,
 			email: values.email,
 		});
-		setIsDisabled(false);
+		setIsDisabled(true);
 	};
 
 	const handleLogout = () => {
@@ -49,7 +57,7 @@ function Profile({ onBurgerIcon, loggedIn, onUpdateUser, onSignOut }) {
 							type="text"
 							name="name"
 							placeholder="Укажите ваше имя"
-							defaultValue={currentUser.name}
+							value={values.name}
 							onChange={handleChange}
 							minLength={2}
 							maxLength={40}
@@ -67,7 +75,7 @@ function Profile({ onBurgerIcon, loggedIn, onUpdateUser, onSignOut }) {
 							type="email"
 							name="email"
 							placeholder="Укажите ваш email"
-							defaultValue={currentUser.email}
+							value={values.email}
 							onChange={handleChange}
 							minLength={2}
 							maxLength={40}
@@ -82,12 +90,12 @@ function Profile({ onBurgerIcon, loggedIn, onUpdateUser, onSignOut }) {
 						<div className="profile__btn-container">
 							<button
 								type="button"
-								className="button button__edit"
+								className="profile__btn profile__btn-edit"
 								onClick={handleChangeStatus}
 							>
 								Редактировать
 							</button>
-							<button type="button" className="button button__exit" onClick={handleLogout}>
+							<button type="button" className="profile__btn profile__btn-exit" onClick={handleLogout}>
 								Выйти из аккаунта
 							</button>
 						</div>
@@ -95,8 +103,8 @@ function Profile({ onBurgerIcon, loggedIn, onUpdateUser, onSignOut }) {
 						<div className="profile__save-container">
 							<button
 								type="submit"
-								className={`button button__save ${!isValid ? 'button__save_disabled' : ''}`}
-								disabled={!isValid}
+								className={`profile__btn profile__btn-save ${isFormValue ? 'profile__btn-save_disabled' : ''}`}
+								disabled={isFormValue}
 							>
 								Сохранить
 							</button>

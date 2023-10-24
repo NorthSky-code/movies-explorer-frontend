@@ -2,6 +2,7 @@ import React from 'react';
 import '../AuthForm/AuthForm.css';
 import AuthForm from '../AuthForm/AuthForm';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { EMAIL_REGEX } from '../../utils/constants';
 
 function Register({ onRegister }) {
 
@@ -43,12 +44,13 @@ function Register({ onRegister }) {
 			<input
 				className="auth-form__input"
 				id="email"
-				type="email"
+				type="text"
 				name="email"
 				placeholder="Укажите ваш email"
 				value={values.email || ''}
 				onChange={handleChange}
 				autoComplete="off"
+				pattern={EMAIL_REGEX}
 				minLength={2}
 				maxLength={40}
 				required
