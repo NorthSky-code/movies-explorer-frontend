@@ -19,7 +19,7 @@ import api from '../../utils/MainApi';
 
 function App() {
 	const [isBurgerOpen, setIsBurgerOpen] = useState(false);
-	const [loggedIn, setLoggedIn] = useState(false);
+	const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') || false);
 	const [isSavedMovies, setIsSavedMovies] = useState([]);
 	const [currentUser, setCurrentUser] = useState({});
 	const [isInfoTooltipPopup, setIsInfoTooltipPopup] = useState(false);
@@ -86,7 +86,6 @@ function App() {
 			.then((res) => {
 				if (res.token) {
 					localStorage.setItem('token', res.token);
-					localStorage.setItem('loggedIn', 'true');
 					setLoggedIn(true);
 					navigate('/movies', { replace: true });
 				}
