@@ -16,6 +16,7 @@ import Burger from '../Popup/Burger';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import * as auth from '../../utils/auth';
 import api from '../../utils/MainApi';
+import { REGISTRATION_ERROR, REGISTRATION_SUCCESS_MESSAGE, AUTHORIZATION_ERROR, PROFILE_UPDATED } from '../../utils/constants'
 
 function App() {
 	const [isBurgerOpen, setIsBurgerOpen] = useState(false);
@@ -84,12 +85,14 @@ function App() {
 				if (res) {
 					setIsInfoTooltipPopup(true);
 					setIsInfoTooltipImage(true);
-					setIsInfoTooltipMessage('Вы успешно зарегистрировались!');
+					setIsInfoTooltipMessage(REGISTRATION_SUCCESS_MESSAGE);
 					handleLogin({ email, password });
 				}
 			})
-			.catch((err) => {
-				console.log(err);
+			.catch(() => {
+				setIsInfoTooltipPopup(true);
+				setIsInfoTooltipImage(false);
+				setIsInfoTooltipMessage(REGISTRATION_ERROR);
 			});
 	};
 
@@ -103,8 +106,10 @@ function App() {
 					navigate('/movies');
 				}
 			})
-			.catch((err) => {
-				console.log(err);
+			.catch(() => {
+				setIsInfoTooltipPopup(true);
+				setIsInfoTooltipImage(false);
+				setIsInfoTooltipMessage(AUTHORIZATION_ERROR);
 			});
 	};
 
@@ -114,7 +119,7 @@ function App() {
 			.then((data) => {
 				setIsInfoTooltipPopup(true);
 				setIsInfoTooltipImage(true);
-				setIsInfoTooltipMessage('Данные профиля обновлены');
+				setIsInfoTooltipMessage(PROFILE_UPDATED);
 				setCurrentUser(data);
 			})
 			.catch((err) => {
@@ -162,14 +167,20 @@ function App() {
 		<CurrentUserContext.Provider value={currentUser}>
 			<div className="page">
 				<Routes>
-					<Route path='/signin' element={<Login onLogin={handleLogin} />} />
-					<Route path='/signup' element={<Register onRegister={handleRegister} />} />
+					<Route path='/signin' element={
+						<Login
+							onLogin={handleLogin}
+						/>} />
+					<Route path='/signup' element={
+						<Register
+							onRegister={handleRegister}
+						/>} />
 					<Route
 						path='/'
 						element={
 							<>
 								<Header
-									onBurgerClick={handleBurgerClick}
+									onBurgerIcon={handleBurgerClick}
 									loggedIn={loggedIn}
 								/>
 								<Main />
@@ -193,6 +204,7 @@ function App() {
 						element={
 							<ProtectedRoute
 								element={SavedMovies}
+								onBurgerIcon={handleBurgerClick}
 								loggedIn={loggedIn}
 								loading={isAuthLoading}
 								onCardLike={handleCardLike}
@@ -208,6 +220,7 @@ function App() {
 								loggedIn={loggedIn}
 								loading={isAuthLoading}
 								onCardLike={handleCardLike}
+								onBurgerIcon={handleBurgerClick}
 								onSignOut={handleSignOut}
 								onUpdateUser={handleUpdateUser}
 							/>} />

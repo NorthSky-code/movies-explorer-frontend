@@ -5,7 +5,7 @@ import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { filterSearch } from '../../utils/filterSearch';
 import Preloader from '../Preloader/Preloader';
-import { notFoundMessage, errorRequestMessage } from '../../utils/constants';
+import { NOT_FOUND_MESSAGE, ERROR_REQUEST_MESSAGE } from '../../utils/constants';
 
 function SavedMovies({ onBurgerIcon, loggedIn, onCardDelete, savedMovies, setSavedMovies }) {
 	const [viewMoviesSaved, setViewMoviesSaved] = useState(savedMovies);
@@ -77,9 +77,9 @@ function SavedMovies({ onBurgerIcon, loggedIn, onCardDelete, savedMovies, setSav
 					) : (
 						<>
 							{isNotFound ? (
-								<p className="card-list__message">{notFoundMessage}</p>
+								<p className="card-list__message">{NOT_FOUND_MESSAGE}</p>
 							) : isErrorRequest ? (
-								<p className="card-list__message">{errorRequestMessage}</p>
+								<p className="card-list__message">{ERROR_REQUEST_MESSAGE}</p>
 							) : (
 								<MoviesCardList
 									movies={viewMoviesSaved}

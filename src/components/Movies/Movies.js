@@ -6,7 +6,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import movieApi from '../../utils/MovieApi';
 import Preloader from '../Preloader/Preloader';
 import { filterSearch } from '../../utils/filterSearch';
-import { VIEW_WIDTHS, CARD_COUNTS, SHOW_MORE_CARDS, notFoundMessage, errorRequestMessage } from '../../utils/constants';
+import { VIEW_WIDTHS, CARD_COUNTS, SHOW_MORE_CARDS, NOT_FOUND_MESSAGE, ERROR_REQUEST_MESSAGE } from '../../utils/constants';
 
 function Movies({ onBurgerIcon, loggedIn, onCardLike, onCardDelete, savedMovies }) {
 	const [apiMovies, setApiMovies] = useState(JSON.parse(localStorage.getItem('reqMovies')) || []);
@@ -151,9 +151,9 @@ function Movies({ onBurgerIcon, loggedIn, onCardLike, onCardDelete, savedMovies 
 					) : (
 						<>
 							{isNotFound ? (
-								<p className="card-list__message">{notFoundMessage}</p>
+								<p className="card-list__message">{NOT_FOUND_MESSAGE}</p>
 							) : isErrorRequest ? (
-								<p className="card-list__message">{errorRequestMessage}</p>
+								<p className="card-list__message">{ERROR_REQUEST_MESSAGE}</p>
 							) : (
 								<MoviesCardList
 									movies={movies}
