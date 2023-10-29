@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './Movies.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
@@ -7,7 +6,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import movieApi from '../../utils/MovieApi';
 import Preloader from '../Preloader/Preloader';
 import { filterSearch } from '../../utils/filterSearch';
-import { viewWidths, cardCounts, showMoreCards, notFoundMessage, errorRequestMessage } from '../../utils/constants';
+import { VIEW_WIDTHS, CARD_COUNTS, SHOW_MORE_CARDS, notFoundMessage, errorRequestMessage } from '../../utils/constants';
 
 function Movies({ onBurgerIcon, loggedIn, onCardLike, onCardDelete, savedMovies }) {
 	const [apiMovies, setApiMovies] = useState(JSON.parse(localStorage.getItem('reqMovies')) || []);
@@ -44,14 +43,14 @@ function Movies({ onBurgerIcon, loggedIn, onCardLike, onCardDelete, savedMovies 
 		const screenWidth = window.innerWidth;
 		let cardCount = 0;
 
-		if (screenWidth >= viewWidths.desktop) {
-			cardCount = cardCounts.desktop;
-		} else if (screenWidth >= viewWidths.tablet) {
-			cardCount = cardCounts.tablet;
-		} else if (screenWidth >= viewWidths.tabletMini) {
-			cardCount = cardCounts.tabletMini;
+		if (screenWidth >= VIEW_WIDTHS.DESKTOP) {
+			cardCount = CARD_COUNTS.DESKTOP;
+		} else if (screenWidth >= VIEW_WIDTHS.TABLET) {
+			cardCount = CARD_COUNTS.TABLET;
+		} else if (screenWidth >= VIEW_WIDTHS.TABLET_MINI) {
+			cardCount = CARD_COUNTS.TABLET_MINI;
 		} else {
-			cardCount = cardCounts.mobile;
+			cardCount = CARD_COUNTS.MOBILE;
 		}
 
 		setCardMoviesView(cardCount);
@@ -61,12 +60,12 @@ function Movies({ onBurgerIcon, loggedIn, onCardLike, onCardDelete, savedMovies 
 		const screenWidth = window.innerWidth;
 		let addShowCards = 0;
 
-		if (screenWidth >= viewWidths.desktop) {
-			addShowCards = showMoreCards.desktop;
-		} else if (screenWidth >= viewWidths.tablet) {
-			addShowCards = showMoreCards.tablet;
+		if (screenWidth >= VIEW_WIDTHS.DESKTOP) {
+			addShowCards = SHOW_MORE_CARDS.DESKTOP;
+		} else if (screenWidth >= VIEW_WIDTHS.TABLET) {
+			addShowCards = SHOW_MORE_CARDS.TABLET;
 		} else {
-			addShowCards = showMoreCards.mobile;
+			addShowCards = SHOW_MORE_CARDS.MOBILE;
 		}
 
 		setCardMoviesView((prevCount) => prevCount + addShowCards);

@@ -29,7 +29,7 @@ function Login({ onLogin }) {
 			<input
 				className="auth-form__input"
 				id="email"
-				type="email"
+				type="text"
 				name="email"
 				placeholder="Укажите ваш email"
 				value={values.email || ''}

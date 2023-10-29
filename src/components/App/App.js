@@ -104,9 +104,6 @@ function App() {
 				}
 			})
 			.catch((err) => {
-				setIsInfoTooltipPopup(true);
-				setIsInfoTooltipImage(false);
-				setIsInfoTooltipMessage('Что-то пошло не так! Попробуйте ещё раз.');
 				console.log(err);
 			});
 	};
