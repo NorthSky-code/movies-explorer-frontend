@@ -44,7 +44,7 @@ function Register({ onRegister }) {
 			<input
 				className="auth-form__input"
 				id="email"
-				type="text"
+				type="email"
 				name="email"
 				placeholder="Укажите ваш email"
 				value={values.email || ''}
@@ -55,7 +55,7 @@ function Register({ onRegister }) {
 				maxLength={40}
 				required
 			/>
-			<span className="auth-form__error">{errors.email}</span>
+			<span className="auth-form__error">{errors['email']}</span>
 			<label htmlFor="password" className="auth-form__field">Пароль</label>
 			<input
 				className={`auth-form__input ${!isValid ? 'auth-form__input_error' : ''}`}

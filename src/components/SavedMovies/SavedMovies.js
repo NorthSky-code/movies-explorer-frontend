@@ -4,42 +4,45 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { filterSearch } from '../../utils/filterSearch';
+import Preloader from '../Preloader/Preloader';
+import { notFoundMessage, errorRequestMessage } from '../../utils/constants';
 
-function SavedMovies({ onBurgerIcon, loggedIn, isSavedMovies, onCardDelete, setIsSavedMovies }) {
-	const [movies, setMovies] = useState(isSavedMovies);
+function SavedMovies({ onBurgerIcon, loggedIn, onCardDelete, savedMovies, setSavedMovies }) {
+	const [viewMoviesSaved, setViewMoviesSaved] = useState(savedMovies);
 	const [isErrorRequest, setIsErrorRequest] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [isNotFound, setIsNotFound] = useState(false);
-	const [searchMovies, setSearchMovies] = useState(localStorage.getItem('searchMovies') || '');
-	const [isShortMovies, setIsShortMovies] = useState(JSON.parse(localStorage.getItem('isShort')) || false);
+	const [searchSavedMovies, setSearchSavedMovies] = useState(localStorage.getItem('searchSavedMovies') || '');
+	const [isShortMovies, setIsShortMovies] = useState(JSON.parse(localStorage.getItem('isShortSaved')) || false);
 
 	useEffect(() => {
-		localStorage.setItem('isSavedMovies', JSON.stringify(isSavedMovies));
-	}, [isSavedMovies]);
+		setViewMoviesSaved(savedMovies);
+	}, [savedMovies, setViewMoviesSaved]);
 
 	useEffect(() => {
-		const filteredMovies = filterSearch(isSavedMovies, searchMovies, isShortMovies);
+		const filteredMovies = filterSearch(savedMovies, searchSavedMovies, isShortMovies);
 		const notFound = filteredMovies.length === 0;
 		setIsNotFound(notFound);
-		setMovies(filteredMovies);
-	}, [isSavedMovies, isShortMovies]);
+		setViewMoviesSaved(filteredMovies);
+	}, [savedMovies, isShortMovies]);
 
-	function handleSearchMovie(e) {
+	function handleSearchSavedMovie(e) {
 		const searchData = e.target.value;
-		setSearchMovies(searchData);
-		localStorage.setItem('searchMovies', searchData);
+		setSearchSavedMovies(searchData);
+		localStorage.setItem('searchSavedMovies', searchData);
 	}
 
 	function handleFilterSearch(searchData) {
 		if (searchData === '') {
 			setIsNotFound(false);
 		} else {
-			const filteredMovies = filterSearch(isSavedMovies, searchData, isShortMovies);
+			const filteredMovies = filterSearch(savedMovies, searchData, isShortMovies);
 			if (filteredMovies.length === 0) {
 				setIsNotFound(true);
 			} else {
 				setIsNotFound(false);
 			}
-			setMovies(filteredMovies);
+			setViewMoviesSaved(filteredMovies);
 			localStorage.setItem('filteredSearchMovies', JSON.stringify(filteredMovies));
 		}
 	}
@@ -47,13 +50,13 @@ function SavedMovies({ onBurgerIcon, loggedIn, isSavedMovies, onCardDelete, setI
 	function checkShortMovie(e) {
 		const checked = e.target.checked;
 		setIsShortMovies(checked);
-		localStorage.setItem('isShort', JSON.stringify(checked));
+		localStorage.setItem('isShortSaved', JSON.stringify(checked));
 	}
 
-	function handleCardDelete(movie) {
-		const updatedMovies = movies.filter((m) => m._id !== movie._id);
-		setIsSavedMovies(updatedMovies);
-		onCardDelete(movie);
+	function handleCardDelete(movieId) {
+		const updatedMovies = viewMoviesSaved.filter((m) => m._id !== movieId);
+		setSavedMovies(updatedMovies);
+		onCardDelete(movieId);
 	}
 
 	return (
@@ -62,19 +65,32 @@ function SavedMovies({ onBurgerIcon, loggedIn, isSavedMovies, onCardDelete, setI
 			<main>
 				<section className="movies">
 					<SearchForm
-						handleSearchMovie={handleSearchMovie}
+						savedMovies={savedMovies}
+						isShortMovies={isShortMovies}
+						handleSearchMovie={handleSearchSavedMovie}
 						handleFilterSearch={handleFilterSearch}
 						checkShortMovie={checkShortMovie}
-						searchMovies={searchMovies}
-						isShortMovies={isShortMovies}
+						searchMovies={searchSavedMovies}
 					/>
-					<MoviesCardList
-						movies={movies}
-						isSavedMovies={isSavedMovies}
-						isNotFound={isNotFound}
-						isErrorRequest={isErrorRequest}
-						onCardDelete={handleCardDelete}
-					/>
+					{isLoading ? (
+						<Preloader />
+					) : (
+						<>
+							{isNotFound ? (
+								<p className="card-list__message">{notFoundMessage}</p>
+							) : isErrorRequest ? (
+								<p className="card-list__message">{errorRequestMessage}</p>
+							) : (
+								<MoviesCardList
+									movies={viewMoviesSaved}
+									savedMovies={savedMovies}
+									isNotFound={isNotFound}
+									isErrorRequest={isErrorRequest}
+									onCardDelete={handleCardDelete}
+								/>
+							)}
+						</>
+					)}
 				</section>
 			</main>
 			<Footer />

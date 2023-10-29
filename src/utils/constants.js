@@ -1,8 +1,12 @@
 export const notFoundMessage = 'Ничего не найдено';
 export const errorRequestMessage = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
-
-export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+export const EMAIL_REGEX = "^[a-zA-Z0-9+_.\\-]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]{2,4}$";
+// export const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 export const VIEW_SHORT_MOVIE = 40;
+
+export const filterDuration = (movies) => {
+	return movies.filter(movie => movie.duration < VIEW_SHORT_MOVIE);
+}
 
 export const viewWidths = {
 	desktop: 1280,

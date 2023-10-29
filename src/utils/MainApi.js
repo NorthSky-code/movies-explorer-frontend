@@ -15,7 +15,8 @@ class MainApi {
 		return fetch(`${this._baseUrl}/movies`, {
 			method: 'GET',
 			headers: {
-				authorization: `Bearer ${token}`,
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json',
 			}
 		}).then(this._responseOutput)
 	}
@@ -25,7 +26,7 @@ class MainApi {
 		return fetch(`${this._baseUrl}/movies`, {
 			method: 'POST',
 			headers: {
-				authorization: `Bearer ${token}`,
+				'Authorization': `Bearer ${token}`,
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
@@ -38,8 +39,8 @@ class MainApi {
 				duration: movie.duration,
 				description: movie.description,
 				trailerLink: movie.trailerLink,
-				image: `https://api.nomoreparties.co${movie.image?.url}`,
-				thumbnail: `https://api.nomoreparties.co${movie.image?.url}`,
+				image: movie.image,
+				thumbnail: movie.thumbnail,
 			})
 		})
 			.then(this._responseOutput)
@@ -51,7 +52,7 @@ class MainApi {
 		return fetch(`${this._baseUrl}/users/me`, {
 			method: 'GET',
 			headers: {
-				authorization: `Bearer ${token}`,
+				'Authorization': `Bearer ${token}`,
 				'Content-Type': 'application/json'
 			}
 		}).then(this._responseOutput)
@@ -62,7 +63,7 @@ class MainApi {
 		return fetch(`${this._baseUrl}/users/me`, {
 			method: 'PATCH',
 			headers: {
-				authorization: `Bearer ${token}`,
+				'Authorization': `Bearer ${token}`,
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
@@ -78,7 +79,8 @@ class MainApi {
 		return fetch(`${this._baseUrl}/movies/${movieId}`, {
 			method: 'DELETE',
 			headers: {
-				authorization: `Bearer ${token}`,
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json'
 			}
 		}).then(this._responseOutput)
 	}
