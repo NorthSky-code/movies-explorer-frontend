@@ -1,31 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import MoreMovies from '../MoreMovies/MoreMovies';
-import moviesArray from '../../utils/MoviesArray';
-import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList() {
-	const [isLoading, setIsLoading] = useState(false);
+
+function MoviesCardList({ movies, countMovies, showMore, onCardLike, onCardDelete, savedMovies }) {
+
+	const initialMovies = movies?.slice(0, countMovies);
 
 	return (
 		<section className="card-list">
-			{isLoading ? (
-				<Preloader />
-			) : (
-				<ul className="card-list__movies">
-					{moviesArray.map((movie, i) => (
-						<MoviesCard key={i}
-							image={movie.image}
-							title={movie.title}
-							duration={movie.duration}
-							isLiked={movie.isLiked}
-							currentPage="movies"
-						/>
-					))}
-				</ul>
-			)}
-			<MoreMovies />
+			<ul className="card-list__movies">
+				{initialMovies.map((movie) => (
+					<MoviesCard
+						key={movie.id || movie._id}
+						movie={movie}
+						allMovies={movies}
+						onCardLike={onCardLike}
+						onCardDelete={onCardDelete}
+						savedMovies={savedMovies}
+					/>
+				))}
+			</ul>
+			<MoreMovies
+				movies={movies}
+				initialMovies={initialMovies}
+				showMore={showMore}
+			/>
 		</section>
 	);
 }

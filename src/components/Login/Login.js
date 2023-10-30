@@ -1,63 +1,66 @@
-import React, { useState } from 'react';
-import '../Register/Register.css';
-import { Link } from 'react-router-dom';
-import logo from '../../images/logo.svg';
+import React from 'react';
+import '../AuthForm/AuthForm.css'
+import AuthForm from '../AuthForm/AuthForm';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { EMAIL_REGEX } from '../../utils/constants';
 
-function Login() {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+function Login({ onLogin }) {
 
-	const handleEmailChange = (e) => {
-		setEmail(e.target.value);
-	};
+	const { values, handleChange, errors, isValid } = useFormWithValidation();
 
-	const handlePasswordChange = (e) => {
-		setPassword(e.target.value);
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		onLogin({
+			email: values.email,
+			password: values.password,
+		});
 	};
 
 	return (
-		<main className="register">
-			<div className="register__logo">
-				<Link to="/"><img src={logo} className="register__logo-icon" alt="Логотип" /></Link>
-			</div>
-			<form className="register__form">
-				<h1 className="register__form-title">Рады видеть!</h1>
-				<label htmlFor="useremail" className="register__form-field">E-mail</label>
-				<input
-					className="register__form-input"
-					id="useremail"
-					type="email"
-					name="email"
-					placeholder="Укажите ваш email"
-					value={email}
-					onChange={handleEmailChange}
-					minLength={2}
-					maxLength={40}
-					required
-				/>
-				<span className="register__form_error"></span>
-				<label htmlFor="userpassword" className="register__form-field">Пароль</label>
-				<input
-					className="register__form-input"
-					id="password"
-					type="password"
-					name="password"
-					placeholder="Укажите ваш пароль"
-					value={password}
-					onChange={handlePasswordChange}
-					minLength={2}
-					maxLength={40}
-					required
-				/>
-				<span className="register__form_error">Что-то пошло не так...</span>
-				<button type="submit" className="register__form-btn register__form-log">Войти</button>
-			</form>
-			<div className="register__question">
-				<p className="register__question-text">Ещё не зарегистрированы?</p>
-				<Link to='/signup' className="register__question-link">Регистрация</Link>
-			</div>
-		</main>
-	)
+		<AuthForm
+			handleSubmit={handleSubmit}
+			formValue={values}
+			question="Ещё не зарегистрированы?"
+			link={'/signup'}
+			linkTitle="Регистрация"
+		>
+			<h1 className="auth-form__title">Рады видеть!</h1>
+			<label htmlFor="email" className="auth-form__field">E-mail</label>
+			<input
+				className="auth-form__input"
+				id="email"
+				type="text"
+				name="email"
+				placeholder="Укажите ваш email"
+				value={values.email || ''}
+				onChange={handleChange}
+				pattern={EMAIL_REGEX}
+				autoComplete="off"
+				minLength={2}
+				maxLength={40}
+				required
+			/>
+			<span className="auth-form__error">{errors.email}</span>
+			<label htmlFor="password" className="auth-form__field">Пароль</label>
+			<input
+				className={`auth-form__input ${!isValid ? 'auth-form__input_error' : ''}`}
+				id="password"
+				type="password"
+				name="password"
+				placeholder="Укажите ваш пароль"
+				value={values.password || ''}
+				onChange={handleChange}
+				autoComplete="off"
+				minLength={8}
+				maxLength={40}
+				required
+			/>
+			<span className="auth-form__error">{errors.password}</span>
+			<button type="submit"
+				className={`auth-form__btn auth-form__log ${!isValid && 'auth-form__btn_disabled'}`}
+				disabled={!isValid}>Войти</button>
+		</AuthForm>
+	);
 }
 
 export default Login;

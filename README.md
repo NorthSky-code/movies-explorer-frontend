@@ -9,3 +9,5 @@
 *  *IP  51.250.104.84*
 
 *  *Frontend https://northsky.movie.nomoreparties.co*
+
+*  https://github.com/NorthSky-code/movies-explorer-frontend/pull/2

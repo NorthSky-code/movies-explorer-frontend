@@ -1,14 +1,28 @@
 .search {
 	min-height: 217px;
+	height: 100%;
 	padding: 0 70px;
+	display: flex;
+	flex-direction: column;
+	align-content: space-between;
+	gap: 12px;
 }
 
 .search__input {
 	display: flex;
 	justify-content: space-between;
 	padding: 70px 0 13px;
-	margin-bottom: 32px;
+	margin-bottom: 10px;
 	border-bottom: 1px solid #424242;
+}
+
+.search__error {
+	position: absolute;
+	color: #EE3465;
+	height: 10px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: normal;
 }
 
 .search__text {
@@ -28,6 +42,7 @@
 }
 
 .search__text:focus {
+	padding-left: 5px;
 	border-radius: 50px;
 	border: 1.5px solid #AAA;
 	transition: .1s;

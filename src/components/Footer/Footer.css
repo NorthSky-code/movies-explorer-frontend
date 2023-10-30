@@ -5,7 +5,7 @@
 
 .footer__title {
 	padding: 79px 0 20px;
-	margin: 0 0 20px;
+	margin: 0 0 19px;
 	color: #8B8B8B;
 	text-align: center;
 	font-size: 13px;
@@ -51,6 +51,10 @@
 	.footer {
 		padding: 0 30px;
 	}
+
+	.footer__title {
+		padding: 78px 0 19px;
+	}
 }
 
 @media screen and (max-width:767px) {
@@ -60,7 +64,7 @@
 
 	.footer__title {
 		padding: 79px 0 21px;
-		margin: 0 0 30px;
+		margin: 0 0 27px;
 		font-size: 12px;
 	}
 
@@ -86,7 +90,7 @@
 	.footer__list {
 		flex-direction: column;
 		align-items: center;
-		gap: 12px;
+		gap: 8px;
 		margin-bottom: 30px;
 	}
 }

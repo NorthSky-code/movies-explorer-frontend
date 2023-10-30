@@ -1,4 +1,4 @@
-.register {
+.auth-form {
 	max-width: 396px;
 	width: 100%;
 	padding: 70px 0 0;
@@ -7,27 +7,27 @@
 	flex-direction: column;
 }
 
-.register__logo {
+.auth-form__logo {
 	transition: linear .2s;
 }
 
-.register__logo-icon {
+.auth-form__logo-icon {
 	display: block;
 }
 
-.register__logo:hover {
+.auth-form__logo:hover {
 	transition: linear .2s;
 	opacity: 0.8;
 }
 
-.register__form {
+.auth-form__form {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 16px;
 	width: 100%;
 }
 
-.register__form-title {
+.auth-form__title {
 	margin: 0 0 40px;
 	padding: 40px 0 0;
 	color: #FFFFFF;
@@ -36,7 +36,7 @@
 	line-height: normal;
 }
 
-.register__form-field {
+.auth-form__field {
 	padding: 0;
 	margin: 0 0 10px;
 	color: #8B8B8B;
@@ -45,7 +45,7 @@
 	line-height: normal;
 }
 
-.register__form-input {
+.auth-form__input {
 	padding: 15px;
 	margin: 0 0 10px;
 	color: #FFFFFF;
@@ -57,11 +57,11 @@
 	background-color: #2F2F2F;
 }
 
-.register__form-input:nth-child(2n) {
+.auth-form__input:nth-child(2n) {
 	font-weight: 500;
 }
 
-.register__form_error {
+.auth-form__error {
 	padding: 0;
 	color: #EE3465;
 	height: 10px;
@@ -70,11 +70,11 @@
 	line-height: normal;
 }
 
-.register__form-input_error {
+.auth-form__input_error:invalid {
 	color: #EE3465;
 }
 
-.register__form-btn {
+.auth-form__btn {
 	padding: 0;
 	margin: 69px 0 0;
 	box-sizing: border-box;
@@ -92,22 +92,27 @@
 	transition: linear .2s;
 }
 
-.register__form-btn:hover {
+.auth-form__btn_disabled {
+	background-color: #F8F8F8;
+	color: #C2C2C2;
+}
+
+.auth-form__btn:hover {
 	transition: linear .2s;
 	opacity: 0.8;
 }
 
-.register__form-log {
+.auth-form__log {
 	margin-top: 159px;
 }
 
-.register__question {
+.auth-form__question {
 	display: flex;
 	justify-content: center;
 	gap: 6px;
 }
 
-.register__question-text {
+.auth-form__question-text {
 	padding: 0;
 	margin: 0;
 	color: #8B8B8B;
@@ -116,7 +121,7 @@
 	line-height: normal;
 }
 
-.register__question-link {
+.auth-form__question-link {
 	text-decoration: none;
 	color: #4285F4;
 	font-size: 14px;
@@ -127,53 +132,53 @@
 	display: block;
 }
 
-.register__question-link:hover {
+.auth-form__question-link:hover {
 	transition: linear .2s;
 	opacity: 0.7;
 }
 
 @media screen and (max-width: 1023px) {
-	.register {
+	.auth-form {
 		padding: 232px 0 0;
 	}
 }
 
 @media screen and (max-width: 767px) {
-	.register {
+	.auth-form {
 		padding: 56px 0 0;
 		align-items: center;
 	}
 
-	.register__form {
+	.auth-form__form {
 		margin-bottom: 14px;
 		max-width: 260px;
 	}
 
-	.register__form-title {
+	.auth-form__title {
 		margin: 0 0 80px;
 		padding: 50px 0 0;
 		text-align: center;
 	}
 
-	.register__form-btn {
+	.auth-form__btn {
 		margin: 159px 0 0;
 		box-sizing: border-box;
 		font-size: 12px;
 	}
 
-	.register__form-log {
+	.auth-form__log {
 		margin-top: 247px;
 	}
 
-	.register__question {
+	.auth-form__question {
 		gap: 7px;
 	}
 
-	.register__question-text {
+	.auth-form__question-text {
 		font-size: 12px;
 	}
 
-	.register__question-link {
+	.auth-form__question-link {
 		font-size: 12px;
 	}
 }

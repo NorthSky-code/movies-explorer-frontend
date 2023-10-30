@@ -1,10 +1,10 @@
 import React from 'react';
 import './MoreMovies.css';
 
-function MoreMovies() {
+function MoreMovies({ movies, initialMovies, showMore }) {
 	return (
 		<div className="more-movies">
-			<button type="button" className="more-movies__btn">Ещё</button>
+			<button onClick={showMore} type="button" className={`more-movies__btn ${movies.length === initialMovies.length ? 'more-movies__btn_hidden' : ''}`}>Ещё</button>
 		</div>
 	)
 }
